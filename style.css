@@ -15,10 +15,10 @@ body {
 }
 
 header {
-  background: rgba(0, 0, 0, 0.85);
-  backdrop-filter: blur(10px);
+  background: rgba(0, 0, 0, 0.7); /* Lighter dark background */
+  backdrop-filter: blur(10px); /* Glass effect */
   color: #fff;
-  padding: 20px; /* Reduced padding for smaller screens */
+  padding: 20px;
   text-align: center;
   position: relative;
   box-shadow: 0 5px 15px rgba(217, 179, 113, 0.3);
@@ -36,8 +36,8 @@ header::after {
 }
 
 header h1 {
-  font-size: 2em; /* Reduced font size for smaller screens */
-  margin-bottom: 10px; /* Reduced margin for smaller screens */
+  font-size: 2em;
+  margin-bottom: 10px;
   text-transform: uppercase;
   letter-spacing: 2px;
   font-weight: 600;
@@ -45,7 +45,7 @@ header h1 {
   color: #d9b371;
 }
 
-/* Search Bar Styles (Restored) */
+/* Search Bar Styles */
 header input[type="text"] {
   padding: 12px 20px;
   border: 1px solid rgba(255, 255, 255, 0.2);
@@ -66,10 +66,10 @@ header input[type="text"]:focus {
 }
 
 main {
-  padding: 30px 20px; /* Adjusted padding for smaller screens */
+  padding: 30px 20px;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); /* Adjusted minmax value */
-  gap: 20px; /* Reduced gap for smaller screens */
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
   flex-grow: 1;
 }
 
@@ -77,7 +77,7 @@ main {
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
   border-radius: 12px;
-  padding: 20px; /* Reduced padding for smaller screens */
+  padding: 20px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
   transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
   border: 1px solid rgba(255, 255, 255, 0.2);
@@ -91,23 +91,23 @@ main {
 
 .app-card h2 {
   margin-top: 0;
-  margin-bottom: 10px; /* Reduced margin for smaller screens */
+  margin-bottom: 10px;
   color: #d9b371;
-  font-size: 1.6em; /* Reduced font size for smaller screens */
+  font-size: 1.6em;
   text-transform: capitalize;
 }
 
 .app-card p {
-  margin-bottom: 10px; /* Reduced margin for smaller screens */
+  margin-bottom: 10px;
   line-height: 1.6;
-  font-size: 0.9em; /* Reduced font size for smaller screens */
+  font-size: 0.9em;
 }
 
 .app-card .categories {
   font-style: italic;
   color: #999;
   margin-bottom: 10px;
-  font-size: 0.8em; /* Reduced font size for smaller screens */
+  font-size: 0.8em;
 }
 
 footer {
@@ -115,9 +115,9 @@ footer {
   backdrop-filter: blur(10px);
   color: #ccc;
   text-align: center;
-  padding: 15px; /* Reduced padding for smaller screens */
+  padding: 15px;
   width: 100%;
-  font-size: 0.8em; /* Reduced font size for smaller screens */
+  font-size: 0.8em;
   box-shadow: 0 -5px 15px rgba(217, 179, 113, 0.3);
   position: relative;
 }
@@ -141,27 +141,27 @@ footer a {
 /* Media Query for Mobile Devices */
 @media (max-width: 768px) {
   header {
-    padding: 15px; /* Further reduced padding */
+    padding: 15px;
   }
 
   header h1 {
-    font-size: 1.5em; /* Further reduced font size */
+    font-size: 1.5em;
   }
 
   main {
-    grid-template-columns: 1fr; /* Single column layout */
+    grid-template-columns: 1fr;
     padding: 20px;
   }
 
   .app-card {
-    padding: 15px; /* Further reduced padding */
+    padding: 15px;
   }
 
   .app-card h2 {
-    font-size: 1.4em; /* Further reduced font size */
+    font-size: 1.4em;
   }
 
   footer {
-    font-size: 0.7em; /* Further reduced font size */
+    font-size: 0.7em;
   }
 }
