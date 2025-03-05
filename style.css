@@ -79,7 +79,7 @@ main {
     padding: 25px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
-    border: 1px solid transparent; /* Initially transparent border */
+    border: 1px solid rgba(255, 255, 255, 0.2);
     position: relative;
     overflow: hidden;
 }
@@ -89,24 +89,20 @@ main {
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
 }
 
-/* Rotating Golden Border Animation */
-.app-card::after {
+/* Rotating Golden Border Animation (only on hover) */
+.app-card:hover::after {
     content: '';
     position: absolute;
-    top: -1px; /* Adjust position to cover card border */
-    left: -1px; /* Adjust position to cover card border */
-    width: 102%; /* Slightly larger to cover corners */
-    height: 102%; /* Slightly larger to cover corners */
+    top: -1px;
+    left: -1px;
+    width: 102%;
+    height: 102%;
     border-radius: 12px;
     border: 2px solid #d9b371;
-    transform: rotate(0deg);
+    transform: rotate(360deg);
     transition: transform 0.5s ease;
     filter: blur(2px);
     z-index: -1;
-}
-
-.app-card:hover::after {
-    transform: rotate(360deg);
 }
 
 .app-card h2 {
