@@ -4,9 +4,9 @@ body {
     padding: 0;
     background-color: #f4f4f4;
     color: #333;
-    display: flex; /* Add flexbox to body */
-    flex-direction: column; /* Stack children vertically */
-    min-height: 100vh; /* Ensure body takes full viewport height */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 header {
@@ -33,7 +33,7 @@ main {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 20px;
-    flex-grow: 1; /* Allow main to expand and fill available space */
+    flex-grow: 1;
 }
 
 .app-card {
@@ -66,7 +66,7 @@ footer {
     text-align: center;
     padding: 10px;
     width: 100%;
-    /* Remove position: fixed; and bottom: 0; */
+    font-size: 0.8em; /* Reduced font size */
 }
 
 /* Media Query for Mobile Devices */
