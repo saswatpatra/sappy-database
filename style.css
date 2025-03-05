@@ -4,6 +4,9 @@ body {
     padding: 0;
     background-color: #f4f4f4;
     color: #333;
+    display: flex; /* Add flexbox to body */
+    flex-direction: column; /* Stack children vertically */
+    min-height: 100vh; /* Ensure body takes full viewport height */
 }
 
 header {
@@ -30,6 +33,7 @@ main {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 20px;
+    flex-grow: 1; /* Allow main to expand and fill available space */
 }
 
 .app-card {
@@ -61,18 +65,17 @@ footer {
     color: white;
     text-align: center;
     padding: 10px;
-    position: fixed;
-    bottom: 0;
     width: 100%;
+    /* Remove position: fixed; and bottom: 0; */
 }
 
 /* Media Query for Mobile Devices */
 @media (max-width: 768px) {
     main {
-        grid-template-columns: 1fr; /* Single column layout on small screens */
+        grid-template-columns: 1fr;
     }
 
     header input[type="text"] {
-        width: 90%; /* Increase input width on mobile */
+        width: 90%;
     }
 }
