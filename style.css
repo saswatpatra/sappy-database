@@ -1,65 +1,67 @@
 body {
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Playfair Display', serif; /* Elegant serif font */
     margin: 0;
     padding: 0;
-    background: linear-gradient(135deg, #1a1a1a, #333333);
-    color: #e0e0e0;
+    background: #f4f4f4; /* Light background for contrast */
+    color: #333;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    transition: background 0.3s ease;
+    overflow-x: hidden; /* Hide horizontal scrollbar for the angled section */
 }
 
 header {
-    background: rgba(0, 0, 0, 0.3);
+    background: #1a1a1a; /* Dark header */
     color: #fff;
     padding: 30px;
     text-align: center;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
     position: relative;
     overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 }
 
-/* Black Overlay */
+/* Angled Section */
 header::before {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
+    width: 150%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+    background: linear-gradient(to right, #333, #555); /* Dark angled gradient */
+    transform: skewY(-5deg); /* Skew the section */
+    transform-origin: top left;
     z-index: -1;
 }
 
-/* Refined Wavy Pattern */
+/* Gold Border */
 header::after {
     content: '';
     position: absolute;
-    top: 0;
+    bottom: 0;
     left: 0;
-    width: 200%;
-    height: 100%;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cpath fill='%23fff' fill-opacity='0.1' d='M0,50 C25,25 75,25 100,50 L100,100 L0,100 Z' /%3E%3C/svg%3E");
-    z-index: -1;
-    animation: moveWavy 20s linear infinite;
-    background-repeat: repeat-x;
-}
-
-@keyframes moveWavy {
-    0% {
-        transform: translateX(0);
-    }
-    100% {
-        transform: translateX(-50%);
-    }
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(to right, #a89050, #d9b371); /* Gold gradient */
 }
 
 header h1 {
-    font-size: 2.5em;
+    font-size: 3em;
     margin-bottom: 15px;
     text-transform: uppercase;
-    letter-spacing: 2px;
+    letter-spacing: 3px;
+    font-weight: 600;
+    position: relative; /* For text shadow */
+}
+
+/* Text Shadow */
+header h1::after {
+    content: attr(data-text); /* Get text from data attribute */
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    z-index: -1;
+    color: #a89050; /* Gold text shadow */
 }
 
 header input[type="text"] {
@@ -74,7 +76,7 @@ header input[type="text"] {
 }
 
 header input[type="text"]:focus {
-    border-color: #007bff;
+    border-color: #d9b371; /* Gold border on focus */
     outline: none;
 }
 
@@ -87,22 +89,23 @@ main {
 }
 
 .app-card {
-    background: rgba(255, 255, 255, 0.05);
+    background: #fff; /* White background for cards */
     border-radius: 12px;
     padding: 25px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid #ddd; /* Subtle border */
 }
 
 .app-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
 }
 
 .app-card h2 {
     margin-top: 0;
     margin-bottom: 15px;
-    color: #007bff;
+    color: #333; /* Dark heading */
     font-size: 1.8em;
     text-transform: capitalize;
 }
@@ -119,17 +122,17 @@ main {
 }
 
 footer {
-    background: rgba(0, 0, 0, 0.5);
+    background: #1a1a1a; /* Dark footer */
     color: #ccc;
     text-align: center;
     padding: 20px;
     width: 100%;
     font-size: 0.9em;
-    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.3);
 }
 
 footer a {
-    color: #007bff;
+    color: #d9b371; /* Gold link color */
     text-decoration: underline;
 }
 
