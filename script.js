@@ -62,30 +62,49 @@ document.addEventListener('DOMContentLoaded', () => {
         const backButton = document.createElement('button');
         backButton.textContent = "Back to categories";
         backButton.addEventListener('click', () => {
-            fetch(apiUrl).then(response => response.json()).then(data => {
-                if(data.values && data.values.length>1){
-                    const headers = data.values[0];
-                    const appsData = data.values.slice(1);
-                    const categories = {};
-                    appsData.forEach(appRow => {
-                        const app = {};
-                        headers.forEach((header, index) => {
-                            app[header] = appRow[index];
+            fetch(apiUrl) // The problematic fetch call was here, fixed below.
+                .then(response => response.json())
+                .then(data => {
+                    if (data.values && data.values.length > 1) {
+                        const headers = data.values[0];
+                        const appsData = data.values.slice(1);
+                        const categories = {};
+                        appsData.forEach(appRow => {
+                            const app = {};
+                            headers.forEach((header, index) => {
+                                app[header] = appRow[index];
+                            });
+                            const category = app.Category || 'Uncategorized';
+                            if (!categories[category]) {
+                                categories[category] = [];
+                            }
+                            categories[category].push(app);
                         });
-                        const category = app.Category || 'Uncategorized';
-                        if (!categories[category]) {
-                            categories[category] = [];
-                        }
-                        categories[category].push(app);
-                    });
-                    displayCategories(categories);
-                }
-            })
+                        displayCategories(categories);
+                    }
+                });
         });
         appListContainer.appendChild(backButton);
     }
 
     function createAppCard(app) {
-        // ... (your createAppCard function remains the same)
+        const card = document.createElement('div');
+        card.classList.add('app-card');
+
+        const nameElement = document.createElement('h2');
+        nameElement.textContent = app.Name || 'No Name';
+
+        const descriptionElement = document.createElement('p');
+        descriptionElement.textContent = app.Description || 'No description provided.';
+
+        const categoriesElement = document.createElement('p');
+        categoriesElement.classList.add('categories');
+        categoriesElement.textContent = app.Category ? `Categories: ${app.Category}` : 'No categories listed.';
+
+        card.appendChild(nameElement);
+        card.appendChild(descriptionElement);
+        card.appendChild(categoriesElement);
+
+        return card;
     }
 });
