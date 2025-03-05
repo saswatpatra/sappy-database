@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const backButton = document.createElement('button');
         backButton.textContent = "Back to categories";
         backButton.addEventListener('click', () => {
-            fetch(apiUrl) // The problematic fetch call was here, fixed below.
+            fetch(apiUrl)
                 .then(response => response.json())
                 .then(data => {
                     if (data.values && data.values.length > 1) {
