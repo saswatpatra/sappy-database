@@ -78,35 +78,14 @@ main {
     border-radius: 12px;
     padding: 25px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
     border: 1px solid rgba(255, 255, 255, 0.2);
-    position: relative;
-    overflow: hidden;
 }
 
 .app-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-}
-
-/* Golden Border Animation (infinite loop) */
-.app-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    border: 2px solid #d9b371;
-    border-radius: 12px;
-    animation: borderAnimation 2s linear infinite;
-    z-index: -1;
-}
-
-@keyframes borderAnimation {
-    to {
-        left: 100%;
-    }
+    border-color: #d9b371; /* Golden border on hover */
 }
 
 .app-card h2 {
