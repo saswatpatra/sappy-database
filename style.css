@@ -32,7 +32,7 @@ header::before {
     z-index: -1;
 }
 
-/* Wavy Pattern */
+/* Refined Wavy Pattern */
 header::after {
     content: '';
     position: absolute;
@@ -40,9 +40,10 @@ header::after {
     left: 0;
     width: 200%;
     height: 100%;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cpath fill='%23fff' fill-opacity='0.1' d='M0 50c10-5 25-5 35 0c10 5 25 5 35 0c10-5 25-5 35 0c10 5 25 5 35 0c10-5 25-5 35 0c10 5 25 5 35 0c10-5 25-5 35 0c10 5 25 5 35 0c10-5 25-5 35 0c10 5 25 5 35 0c10-5 25-5 35 0c10 5 25 5 35 0c10-5 25-5 35 0c10 5 25 5 35 0c10-5 25-5 35 0c10 5 25 5 35 0v50H0V50z'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cpath fill='%23fff' fill-opacity='0.1' d='M0,50 C25,25 75,25 100,50 L100,100 L0,100 Z' /%3E%3C/svg%3E");
     z-index: -1;
     animation: moveWavy 20s linear infinite;
+    background-repeat: repeat-x;
 }
 
 @keyframes moveWavy {
