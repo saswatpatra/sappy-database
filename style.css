@@ -64,8 +64,9 @@ footer {
     background-color: #333;
     color: white;
     text-align: center;
-    padding: 5px;
+    padding: 10px;
     width: 100%;
+    font-size: 0.8em;
 }
 
 /* Media Query for Mobile Devices */
@@ -77,4 +78,8 @@ footer {
     header input[type="text"] {
         width: 90%;
     }
+}
+
+.category-card {
+    cursor: pointer;
 }
