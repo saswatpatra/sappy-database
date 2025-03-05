@@ -15,17 +15,23 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         .then(data => {
             if (data.values && data.values.length > 1) {
-                appListContainer.innerHTML = '';
                 const headers = data.values[0];
                 const appsData = data.values.slice(1);
+                const categories = {};
 
                 appsData.forEach(appRow => {
                     const app = {};
                     headers.forEach((header, index) => {
                         app[header] = appRow[index];
                     });
-                    appListContainer.appendChild(createAppCard(app));
+                    const category = app.Category || 'Uncategorized';
+                    if (!categories[category]) {
+                        categories[category] = [];
+                    }
+                    categories[category].push(app);
                 });
+
+                displayCategories(categories);
             } else {
                 appListContainer.innerHTML = '<p>No applications data found in the sheet.</p>';
             }
@@ -35,24 +41,51 @@ document.addEventListener('DOMContentLoaded', () => {
             appListContainer.innerHTML = '<p>Error loading applications.</p>';
         });
 
+    function displayCategories(categories) {
+        appListContainer.innerHTML = '';
+        Object.keys(categories).forEach(category => {
+            const categoryCard = document.createElement('div');
+            categoryCard.classList.add('app-card', 'category-card');
+            categoryCard.textContent = category;
+            categoryCard.addEventListener('click', () => {
+                displayTools(categories[category]);
+            });
+            appListContainer.appendChild(categoryCard);
+        });
+    }
+
+    function displayTools(tools) {
+        appListContainer.innerHTML = '';
+        tools.forEach(tool => {
+            appListContainer.appendChild(createAppCard(tool));
+        });
+        const backButton = document.createElement('button');
+        backButton.textContent = "Back to categories";
+        backButton.addEventListener('click', () => {
+            fetch(apiUrl).then(response => response.json()).then(data => {
+                if(data.values && data.values.length>1){
+                    const headers = data.values[0];
+                    const appsData = data.values.slice(1);
+                    const categories = {};
+                    appsData.forEach(appRow => {
+                        const app = {};
+                        headers.forEach((header, index) => {
+                            app[header] = appRow[index];
+                        });
+                        const category = app.Category || 'Uncategorized';
+                        if (!categories[category]) {
+                            categories[category] = [];
+                        }
+                        categories[category].push(app);
+                    });
+                    displayCategories(categories);
+                }
+            })
+        });
+        appListContainer.appendChild(backButton);
+    }
+
     function createAppCard(app) {
-        const card = document.createElement('div');
-        card.classList.add('app-card');
-
-        const nameElement = document.createElement('h2');
-        nameElement.textContent = app.Name || 'No Name';
-
-        const descriptionElement = document.createElement('p');
-        descriptionElement.textContent = app.Description || 'No description provided.';
-
-        const categoriesElement = document.createElement('p');
-        categoriesElement.classList.add('categories');
-        categoriesElement.textContent = app.Category ? `Categories: ${app.Category}` : 'No categories listed.';
-
-        card.appendChild(nameElement);
-        card.appendChild(descriptionElement);
-        card.appendChild(categoriesElement);
-
-        return card;
+        // ... (your createAppCard function remains the same)
     }
 });
