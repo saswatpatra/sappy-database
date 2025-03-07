@@ -15,13 +15,26 @@ body {
 }
 
 header {
-  background-color: #1a1a1a; /* Light black background */
-  backdrop-filter: blur(10px); /* Glass effect */
+  background-color: rgba(26, 26, 26, 0.4); /* More translucent light black */
+  backdrop-filter: blur(15px); /* Increased blur for glassiness */
+  /* Animated background pattern */
+  background-image: 
+    linear-gradient(45deg, rgba(255, 255, 255, 0.1) 25%, transparent 25%, transparent 75%, rgba(255, 255, 255, 0.1) 75%),
+    linear-gradient(45deg, rgba(255, 255, 255, 0.1) 25%, transparent 25%, transparent 75%, rgba(255, 255, 255, 0.1) 75%);
+  background-size: 20px 20px;
+  background-position: 0 0, 10px 10px;
+  animation: movePattern 10s linear infinite;
   color: #fff;
   padding: 20px;
   text-align: center;
   position: relative;
   box-shadow: 0 5px 15px rgba(217, 179, 113, 0.3);
+}
+
+@keyframes movePattern {
+  to {
+    background-position: 20px 20px, 30px 30px;
+  }
 }
 
 /* Golden Border */
