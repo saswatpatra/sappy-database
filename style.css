@@ -15,7 +15,7 @@ body {
 }
 
 header {
-  background: rgba(0, 0, 0, 0.7); /* Lighter dark background */
+  background-color: #1a1a1a; /* Light black background */
   backdrop-filter: blur(10px); /* Glass effect */
   color: #fff;
   padding: 20px;
