@@ -6,7 +6,7 @@ body {
   font-family: "Poppins", sans-serif;
   margin: 0;
   padding: 0;
-  background: radial-gradient(circle, #181818, #080808);
+  background: radial-gradient(circle, #111418, #000000);
   color: #e0e0e0;
   display: flex;
   flex-direction: column;
@@ -14,167 +14,233 @@ body {
   overflow-x: hidden;
 }
 
+/* HEADER STYLING */
 header {
-  background-color: rgba(26, 26, 26, 0.4); /* More translucent light black */
-  backdrop-filter: blur(15px); /* Increased blur for glassiness */
-  /* Animated background pattern */
-  background-image: 
-    linear-gradient(45deg, rgba(255, 255, 255, 0.1) 25%, transparent 25%, transparent 75%, rgba(255, 255, 255, 0.1) 75%),
-    linear-gradient(45deg, rgba(255, 255, 255, 0.1) 25%, transparent 25%, transparent 75%, rgba(255, 255, 255, 0.1) 75%);
-  background-size: 20px 20px;
-  background-position: 0 0, 10px 10px;
-  animation: movePattern 10s linear infinite;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.9) 0%, rgba(20, 20, 20, 0.8) 100%);
   color: #fff;
   padding: 20px;
   text-align: center;
   position: relative;
-  box-shadow: 0 5px 15px rgba(217, 179, 113, 0.3);
-}
-
-@keyframes movePattern {
-  to {
-    background-position: 20px 20px, 30px 30px;
-  }
-}
-
-/* Golden Border */
-header::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 3px;
-  background: linear-gradient(to right, #a89050, #d9b371);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.6);
 }
 
 header h1 {
   font-size: 2em;
-  margin-bottom: 10px;
   text-transform: uppercase;
   letter-spacing: 2px;
   font-weight: 600;
-  position: relative;
-  color: #d9b371;
+  color: #FFD700; /* Gold */
+  text-shadow: 0 2px 10px rgba(255, 215, 0, 0.6);
 }
 
-/* Search Bar Styles */
+/* SEARCH BAR */
 header input[type="text"] {
   padding: 12px 20px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 25px;
+  border: 2px solid #FFD700;
+  border-radius: 30px;
   background-color: rgba(255, 255, 255, 0.1);
   color: #e0e0e0;
   width: 80%;
   max-width: 600px;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
-  backdrop-filter: blur(5px);
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
 }
 
 header input[type="text"]:focus {
-  border-color: #d9b371;
+  border-color: #FFA500;
   outline: none;
-  box-shadow: 0 0 15px rgba(217, 179, 113, 0.5);
+  box-shadow: 0 0 15px rgba(255, 165, 0, 0.6);
 }
 
+/* GOLDEN SEPARATOR */
+.golden-border {
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(to right, #FFD700, #FFA500);
+  margin: 0; /* Ensure no extra margin */
+}
+
+/* MAIN CONTENT */
 main {
-  padding: 30px 20px;
+  padding: 20px;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 20px;
   flex-grow: 1;
+  transition: opacity 0.5s ease;
+  margin: 0 auto;
+  max-width: 1200px;
+  box-sizing: border-box; /* Ensure padding is included in width calculation */
+  overflow: hidden; /* Prevent overflow */
 }
 
+/* CATEGORY CARD STYLING */
+.category-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  text-align: center;
+  cursor: pointer;
+  box-sizing: border-box; /* Ensure padding is included in width calculation */
+}
+
+.category-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+  border-color: #FFD700;
+}
+
+/* APP CARD STYLING */
 .app-card {
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
   border-radius: 12px;
   padding: 20px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
   transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
   border: 1px solid rgba(255, 255, 255, 0.2);
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box; /* Ensure padding is included in width calculation */
 }
 
 .app-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-  border-color: #d9b371;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+  border-color: #FFD700;
 }
 
 .app-card h2 {
   margin-top: 0;
-  margin-bottom: 10px;
-  color: #d9b371;
+  color: #FFD700;
   font-size: 1.6em;
-  text-transform: capitalize;
 }
 
-.app-card p {
-  margin-bottom: 10px;
-  line-height: 1.6;
-  font-size: 0.9em;
+/* FAVORITE BUTTON */
+.favorite-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 1.5em;
+  color: white;
+  cursor: pointer;
+  transition: color 0.3s ease, transform 0.3s ease;
 }
 
-.app-card .categories {
-  font-style: italic;
-  color: #999;
-  margin-bottom: 10px;
-  font-size: 0.8em;
+.favorite-btn.active {
+  color: red;
+  transform: scale(1.2);
 }
 
+/* BACK TO CATEGORIES BUTTON */
+#back-button-container {
+  text-align: center;
+  margin: 20px auto;
+  padding: 10px;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  display: none; /* Hide by default */
+}
+
+#back-button-container.visible {
+  display: block; /* Show only when needed */
+}
+
+#back-button {
+  background: linear-gradient(to right, #FFD700, #FFA500);
+  border: none;
+  border-radius: 30px;
+  padding: 10px 20px;
+  color: #000;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(255, 215, 0, 0.4);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#back-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(255, 215, 0, 0.6);
+}
+
+/* FOOTER */
 footer {
-  background: rgba(0, 0, 0, 0.85);
-  backdrop-filter: blur(10px);
+  background: rgba(0, 0, 0, 0.95);
   color: #ccc;
   text-align: center;
   padding: 15px;
-  width: 100%;
   font-size: 0.8em;
-  box-shadow: 0 -5px 15px rgba(217, 179, 113, 0.3);
-  position: relative;
-}
-
-/* Golden Line on Top of Footer */
-footer::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 3px;
-  background: linear-gradient(to right, #a89050, #d9b371);
 }
 
 footer a {
-  color: #d9b371;
+  color: #FFD700;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+footer a:hover {
+  color: #FFA500;
   text-decoration: underline;
 }
 
-/* Media Query for Mobile Devices */
+/* RESPONSIVE DESIGN */
 @media (max-width: 768px) {
-  header {
-    padding: 15px;
+  header h1 {
+    font-size: 1.5em; /* Smaller header text for mobile */
   }
 
-  header h1 {
-    font-size: 1.5em;
+  header input[type="text"] {
+    width: 90%; /* Wider search bar for mobile */
+    padding: 10px 15px;
   }
 
   main {
-    grid-template-columns: 1fr;
-    padding: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Smaller cards for mobile */
+    padding: 10px; /* Reduced padding for mobile */
   }
 
-  .app-card {
-    padding: 15px;
+  .category-card, .app-card {
+    padding: 15px; /* Smaller padding for mobile */
   }
 
   .app-card h2 {
-    font-size: 1.4em;
+    font-size: 1.4em; /* Smaller font size for app names on mobile */
   }
 
-  footer {
-    font-size: 0.7em;
+  #back-button {
+    padding: 8px 16px; /* Smaller button for mobile */
+    font-size: 0.9em;
+  }
+}
+
+@media (max-width: 480px) {
+  header h1 {
+    font-size: 1.2em; /* Even smaller header text for very small screens */
+  }
+
+  header input[type="text"] {
+    width: 95%; /* Full-width search bar for very small screens */
+    padding: 8px 12px;
+  }
+
+  main {
+    grid-template-columns: 1fr; /* Single column layout for very small screens */
+    padding: 5px; /* Minimal padding for very small screens */
+  }
+
+  .category-card, .app-card {
+    padding: 10px; /* Minimal padding for very small screens */
+  }
+
+  .app-card h2 {
+    font-size: 1.2em; /* Smaller font size for very small screens */
+  }
+
+  #back-button {
+    padding: 6px 12px; /* Smaller button for very small screens */
+    font-size: 0.8em;
   }
 }
