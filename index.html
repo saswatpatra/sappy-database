@@ -1,25 +1,34 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Free Portal - Free Resources Database</title>
-    <link rel="stylesheet" href="style.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"> 
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AlternativeTo - Your Version</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header>
-        <h1 data-text="AlternativeTo - Your Version">Free Portal - Free Resources Database</h1>
-        <input type="text" id="searchInput" placeholder="Search for apps...">
-    </header>
+  <header>
+    <h1>AlternativeTo - Your Version</h1>
+    <input type="text" id="searchBar" placeholder="Search by name or tag:category">
+  </header>
 
-    <main id="app-list">
-        <p>Loading applications...</p>
-    </main>
+  <div class="golden-border"></div> <!-- Golden separator -->
 
-    <footer>
-        <p>With ❤️ <a href="https://saswatpatra.carrd.co/" style="text-decoration: underline;">Saswat Patra</a></p>
-    </footer>
+  <!-- New container for "Back to Categories" button -->
+  <div id="back-button-container" class="hidden">
+    <button id="back-button">Back to Categories</button>
+  </div>
 
-    <script src="script.js"></script>
+  <main id="app-list">
+    <p>Loading applications...</p>
+  </main>
+
+  <footer>
+    <div class="golden-border"></div> <!-- Footer separator -->
+    <p>With ❤️ <a href="https://saswatpatra.carrd.co/" target="_blank">Saswat Patra</a></p>
+  </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>
