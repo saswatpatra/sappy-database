@@ -1,246 +1,250 @@
-html {
-  scroll-behavior: smooth;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AlternativeTo - Your Version</title>
+  <style>
+    /* GENERAL STYLES */
+    html {
+      scroll-behavior: smooth;
+    }
 
-body {
-  font-family: "Poppins", sans-serif;
-  margin: 0;
-  padding: 0;
-  background: radial-gradient(circle, #111418, #000000);
-  color: #e0e0e0;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  overflow-x: hidden;
-}
+    body {
+      font-family: "Poppins", sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #E6F7FF; /* Light blue background for main content */
+      color: #333333;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
 
-/* HEADER STYLING */
-header {
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.9) 0%, rgba(20, 20, 20, 0.8) 100%);
-  color: #fff;
-  padding: 20px;
-  text-align: center;
-  position: relative;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.6);
-}
+    /* HEADER STYLING */
+    header {
+      background: #FFD95F; /* Solid light yellow */
+      color: #333333;
+      padding: 20px;
+      text-align: center;
+      position: relative;
+      box-shadow: 
+        0 5px 15px rgba(0, 0, 0, 0.1),
+        0 10px 20px rgba(0, 0, 0, 0.05); /* Layered shadow */
+      border-bottom: 4px solid #FFC107; /* Darker yellow border */
+      margin-bottom: 10px;
+      overflow: hidden; /* Ensures the pseudo-element doesn't overflow */
+    }
 
-header h1 {
-  font-size: 2em;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  font-weight: 600;
-  color: #FFD700; /* Gold */
-  text-shadow: 0 2px 10px rgba(255, 215, 0, 0.6);
-}
+    header::after {
+      content: '';
+      position: absolute;
+      bottom: -20px; /* Adjusted for the curve */
+      left: 0;
+      width: 100%;
+      height: 40px; /* Increased to create more curve */
+      background: linear-gradient(to bottom, #FFD95F, transparent);
+      box-shadow: 0 20px 20px rgba(0, 0, 0, 0.1);
+      border-radius: 50%; /* Creates the curved effect */
+      z-index: -1;
+    }
 
-/* SEARCH BAR */
-header input[type="text"] {
-  padding: 12px 20px;
-  border: 2px solid #FFD700;
-  border-radius: 30px;
-  background-color: rgba(255, 255, 255, 0.1);
-  color: #e0e0e0;
-  width: 80%;
-  max-width: 600px;
-  transition: all 0.3s ease;
-  box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
-}
+    header h1 {
+      font-size: 2em;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-weight: 600;
+      color: #333333;
+      text-shadow: 
+        0 2px 2px rgba(0, 0, 0, 0.1),
+        0 4px 4px rgba(0, 0, 0, 0.05); /* Text depth */
+    }
+    /* SEARCH BAR */
+    header input[type="text"] {
+      padding: 12px 20px;
+      border: 2px solid #00CED1; /* Teal border */
+      border-radius: 30px;
+      background-color: rgba(255, 255, 255, 0.9);
+      color: #333333;
+      width: 80%;
+      max-width: 600px;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 10px rgba(0, 206, 209, 0.2);
+    }
 
-header input[type="text"]:focus {
-  border-color: #FFA500;
-  outline: none;
-  box-shadow: 0 0 15px rgba(255, 165, 0, 0.6);
-}
+    header input[type="text"]:focus {
+      border-color: #FF6F61; /* Coral pink on focus */
+      outline: none;
+      box-shadow: 0 0 15px rgba(255, 111, 97, 0.3);
+    }
 
-/* GOLDEN SEPARATOR */
-.golden-border {
-  width: 100%;
-  height: 3px;
-  background: linear-gradient(to right, #FFD700, #FFA500);
-  margin: 0; /* Ensure no extra margin */
-}
+    /* MAIN CONTENT */
+    main {
+      padding: 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+      flex-grow: 1;
+      transition: opacity 0.5s ease;
+      margin: 0 auto;
+      max-width: 1200px;
+      box-sizing: border-box;
+      overflow: hidden;
+      background: #E6F7FF; /* Light blue background */
+    }
 
-/* MAIN CONTENT */
-main {
-  padding: 20px;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 20px;
-  flex-grow: 1;
-  transition: opacity 0.5s ease;
-  margin: 0 auto;
-  max-width: 1200px;
-  box-sizing: border-box; /* Ensure padding is included in width calculation */
-  overflow: hidden; /* Prevent overflow */
-}
+    /* CATEGORY CARD STYLING */
+    .category-card {
+      background: #FFFFFF;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 4px 10px rgba(0, 206, 209, 0.2);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border: 1px solid rgba(0, 206, 209, 0.1);
+      text-align: center;
+      cursor: pointer;
+      box-sizing: border-box;
+    }
 
-/* CATEGORY CARD STYLING */
-.category-card {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border-radius: 12px;
-  padding: 20px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  text-align: center;
-  cursor: pointer;
-  box-sizing: border-box; /* Ensure padding is included in width calculation */
-}
+    .category-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 206, 209, 0.3);
+      background: #00CED1; /* Teal background on hover */
+      color: #FFFFFF;
+    }
 
-.category-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
-  border-color: #FFD700;
-}
+    /* APP CARD STYLING */
+    .app-card {
+      background: #FFFFFF;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 4px 10px rgba(0, 206, 209, 0.2);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border: 1px solid rgba(0, 206, 209, 0.1);
+      position: relative;
+      overflow: hidden;
+      box-sizing: border-box;
+    }
 
-/* APP CARD STYLING */
-.app-card {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border-radius: 12px;
-  padding: 20px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  position: relative;
-  overflow: hidden;
-  box-sizing: border-box; /* Ensure padding is included in width calculation */
-}
+    .app-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 206, 209, 0.3);
+      background: #FF6F61; /* Coral pink background on hover */
+      color: #FFFFFF;
+    }
 
-.app-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
-  border-color: #FFD700;
-}
+    .app-card h2 {
+      margin-top: 0;
+      color: #00CED1; /* Teal for app names */
+      font-size: 1.6em;
+    }
 
-.app-card h2 {
-  margin-top: 0;
-  color: #FFD700;
-  font-size: 1.6em;
-}
+    /* FAVORITE BUTTON */
+    .favorite-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 1.5em;
+      color: #FF6F61; /* Coral pink */
+      cursor: pointer;
+      transition: color 0.3s ease, transform 0.3s ease;
+    }
 
-/* FAVORITE BUTTON */
-.favorite-btn {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  font-size: 1.5em;
-  color: white;
-  cursor: pointer;
-  transition: color 0.3s ease, transform 0.3s ease;
-}
+    .favorite-btn:hover {
+      animation: bounce 0.5s ease;
+    }
 
-.favorite-btn.active {
-  color: red;
-  transform: scale(1.2);
-}
+    .favorite-btn.active {
+      color: #00CED1; /* Teal */
+      transform: scale(1.2);
+    }
 
-/* BACK TO CATEGORIES BUTTON */
-#back-button-container {
-  text-align: center;
-  margin: 20px auto;
-  padding: 10px;
-  transition: opacity 0.3s ease, transform 0.3s ease;
-  display: none; /* Hide by default */
-}
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
 
-#back-button-container.visible {
-  display: block; /* Show only when needed */
-}
+    /* BACK TO CATEGORIES BUTTON */
+    #back-button-container {
+      text-align: center;
+      margin: 20px auto;
+      padding: 10px;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      display: none; /* Hide by default */
+    }
 
-#back-button {
-  background: linear-gradient(to right, #FFD700, #FFA500);
-  border: none;
-  border-radius: 30px;
-  padding: 10px 20px;
-  color: #000;
-  font-weight: 600;
-  cursor: pointer;
-  box-shadow: 0 4px 10px rgba(255, 215, 0, 0.4);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
+    #back-button-container.visible {
+      display: block; /* Show only when needed */
+    }
 
-#back-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 15px rgba(255, 215, 0, 0.6);
-}
+    #back-button {
+      background: #FF6F61; /* Coral pink */
+      border: none;
+      border-radius: 30px;
+      padding: 10px 20px;
+      color: #FFFFFF;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(255, 111, 97, 0.3);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
 
-/* FOOTER */
-footer {
-  background: rgba(0, 0, 0, 0.95);
-  color: #ccc;
-  text-align: center;
-  padding: 15px;
-  font-size: 0.8em;
-}
+    #back-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(255, 111, 97, 0.4);
+    }
 
-footer a {
-  color: #FFD700;
-  text-decoration: none;
-  font-weight: bold;
-}
+    /* FOOTER */
+    footer {
+      background: #FFD95F; /* Solid light yellow */
+      color: #333333;
+      text-align: center;
+      padding: 15px;
+      font-size: 0.8em;
+    }
 
-footer a:hover {
-  color: #FFA500;
-  text-decoration: underline;
-}
+    footer a {
+      color: #00CED1; /* Teal */
+      text-decoration: none;
+      font-weight: bold;
+    }
 
-/* RESPONSIVE DESIGN */
-@media (max-width: 768px) {
-  header h1 {
-    font-size: 1.5em; /* Smaller header text for mobile */
-  }
+    footer a:hover {
+      color: #FF6F61; /* Coral pink */
+      text-decoration: underline;
+    }
 
-  header input[type="text"] {
-    width: 90%; /* Wider search bar for mobile */
-    padding: 10px 15px;
-  }
+    /* RESPONSIVE DESIGN */
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 1.5em;
+      }
 
-  main {
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Smaller cards for mobile */
-    padding: 10px; /* Reduced padding for mobile */
-  }
+      header input[type="text"] {
+        width: 90%;
+        padding: 10px 15px;
+      }
 
-  .category-card, .app-card {
-    padding: 15px; /* Smaller padding for mobile */
-  }
+      main {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        padding: 10px;
+      }
 
-  .app-card h2 {
-    font-size: 1.4em; /* Smaller font size for app names on mobile */
-  }
+      .category-card, .app-card {
+        padding: 15px;
+      }
 
-  #back-button {
-    padding: 8px 16px; /* Smaller button for mobile */
-    font-size: 0.9em;
-  }
-}
+      .app-card h2 {
+        font-size: 1.4em;
+      }
 
-@media (max-width: 480px) {
-  header h1 {
-    font-size: 1.2em; /* Even smaller header text for very small screens */
-  }
+      #back-button {
+        padding: 8px 16px;
+        font-size: 0.9em;
+      }
+    }
 
-  header input[type="text"] {
-    width: 95%; /* Full-width search bar for very small screens */
-    padding: 8px 12px;
-  }
-
-  main {
-    grid-template-columns: 1fr; /* Single column layout for very small screens */
-    padding: 5px; /* Minimal padding for very small screens */
-  }
-
-  .category-card, .app-card {
-    padding: 10px; /* Minimal padding for very small screens */
-  }
-
-  .app-card h2 {
-    font-size: 1.2em; /* Smaller font size for very small screens */
-  }
-
-  #back-button {
-    padding: 6px 12px; /* Smaller button for very small screens */
-    font-size: 0.8em;
-  }
-}
+    @media (max-width: 480px) {
+      header h1 {
+        font-size: 1
