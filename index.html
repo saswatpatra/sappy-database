@@ -4,11 +4,228 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AlternativeTo - Your Version</title>
-  <link rel="stylesheet" href="style.css">
+  <style>
+    /* GENERAL STYLES */
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Poppins", sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #e3f2fd; /* Very light blue background for the whole body */
+      color: #333; /* Dark text color */
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* HEADER STYLING */
+    header {
+      background: #fff176; /* Light yellow */
+      color: #333; /* Dark text color */
+      padding: 20px;
+      text-align: center;
+      position: relative;
+      box-shadow: 
+        0 5px 15px rgba(0, 0, 0, 0.1),
+        0 10px 20px rgba(0, 0, 0, 0.05); /* Layered shadow */
+      border-bottom: 4px solid #fdd835; /* Brighter yellow */
+      margin-bottom: 10px;
+    }
+
+    header h1 {
+      font-size: 2em;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-weight: 600;
+    }
+
+    /* SEARCH BAR */
+    header input[type="text"] {
+      padding: 12px 20px;
+      border: 2px solid #fff59d; /* Very light yellow border */
+      border-radius: 30px;
+      background-color: rgba(255, 255, 255, 0.9);
+      color: #333;
+      width: 80%;
+      max-width: 600px;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 10px rgba(255, 245, 157, 0.2);
+    }
+
+    header input[type="text"]:focus {
+      border-color: #fbc02d; /* Darker yellow on focus */
+      outline: none;
+      box-shadow: 0 0 15px rgba(251, 192, 45, 0.3);
+    }
+
+    /* FOOTER */
+    footer {
+      background: #fff176; /* Light yellow */
+      color: #333; /* Dark text color */
+      text-align: center;
+      padding: 15px;
+      font-size: 0.8em;
+      margin-top: auto; /* Pushes the footer to the bottom */
+    }
+
+    footer p {
+      margin: 0;
+    }
+
+    footer a {
+      color: #333; /* Dark text color */
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    footer a:hover {
+      color: #1565c0; /* Blue */
+      text-decoration: underline;
+    }
+
+    /* 3D CURVED EFFECT */
+    .curved {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .curved::before,
+    .curved::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 20px;
+      pointer-events: none;
+    }
+
+    .curved::before {
+      bottom: 100%;
+      background: linear-gradient(to bottom, #fff176, transparent);
+    }
+
+    .curved::after {
+      top: 100%;
+      background: linear-gradient(to top, #fff176, transparent);
+    }
+
+    /* MAIN CONTENT */
+    main {
+      padding: 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+      flex-grow: 1;
+      transition: opacity 0.5s ease;
+      margin: 0 auto;
+      max-width: 1200px;
+      box-sizing: border-box;
+      overflow: hidden;
+      background: #e3f2fd; /* Very light blue background for main content */
+    }
+
+    /* CATEGORY CARD STYLING */
+    .category-card {
+      background: #ffffff; /* White */
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      text-align: center;
+      cursor: pointer;
+      box-sizing: border-box;
+    }
+
+    .category-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(255, 255, 255, 0.3);
+      background: #b2ebf2; /* Light cyan */
+      color: #333;
+    }
+
+    /* APP CARD STYLING */
+    .app-card {
+      background: #ffffff; /* White */
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      position: relative;
+      overflow: hidden;
+      box-sizing: border-box;
+    }
+
+    .app-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(255, 255, 255, 0.3);
+      background: #b2ebf2; /* Light cyan */
+      color: #333;
+    }
+
+    .app-card h2 {
+      margin-top: 0;
+      color: #1e88e5; /* Blue */
+      font-size: 1.6em;
+    }
+
+    /* RESPONSIVE DESIGN */
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 1.5em;
+      }
+
+      header input[type="text"] {
+        width: 90%;
+        padding: 10px 15px;
+      }
+
+      main {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        padding: 10px;
+      }
+
+      .category-card, .app-card {
+        padding: 15px;
+      }
+
+      .app-card h2 {
+        font-size: 1.4em;
+      }
+    }
+
+    @media (max-width: 480px) {
+      header h1 {
+        font-size: 1.2em;
+      }
+
+      header input[type="text"] {
+        width: 95%;
+        padding: 8px 12px;
+      }
+
+      main {
+        grid-template-columns: 1fr;
+        padding: 5px;
+      }
+
+      .category-card, .app-card {
+        padding: 10px;
+      }
+
+      .app-card h2 {
+        font-size: 1.2em;
+      }
+    }
+  </style>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-  <header>
+  <header class="curved">
     <h1>AlternativeTo - Your Version</h1>
     <input type="text" id="searchBar" placeholder="Search by name or tag:category">
   </header>
@@ -24,7 +241,7 @@
     <p>Loading applications...</p>
   </main>
 
-  <footer>
+  <footer class="curved">
     <div class="golden-border"></div> <!-- Footer separator -->
     <p>With ❤️ <a href="https://saswatpatra.carrd.co/" target="_blank">Saswat Patra</a></p>
   </footer>
