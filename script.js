@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let allApps = [];
   let categories = {}; // Store categories data in memory
 
+  // Corrected API URL
   const apiUrl = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${range}?key=${apiKey}`;
 
   // Fetch data from Google Sheets
