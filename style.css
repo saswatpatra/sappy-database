@@ -4,7 +4,7 @@ html {
 }
 
 body {
-  font-family: "Poppins", sans-serif;
+  font-family:-family "Poppins", sans-serif;
   margin: 0;
   padding: 0;
   background: #e3f2fd; /* Very light blue background for the whole body */
@@ -149,19 +149,31 @@ main {
   position: relative;
   overflow: hidden;
   box-sizing: border-box;
-}
-
-.app-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 25px rgba(255, 255, 255, 0.3);
-  background: #b2ebf2; /* Light cyan */
-  color: #333;
+  margin-bottom: 20px;
 }
 
 .app-card h2 {
   margin-top: 0;
   color: #1e88e5; /* Blue */
   font-size: 1.6em;
+}
+
+.app-card p {
+  margin: 10px 0;
+}
+
+.app-card .categories {
+  font-size: 0.9em;
+  color: #666;
+}
+
+.app-card a {
+  color: #1e88e5; /* Blue */
+  text-decoration: none;
+}
+
+.app-card a:hover {
+  text-decoration: underline;
 }
 
 /* BACK TO CATEGORIES BUTTON */
