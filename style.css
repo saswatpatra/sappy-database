@@ -4,7 +4,7 @@ html {
 }
 
 body {
-  font-family:-family "Poppins", sans-serif;
+  font-family: "Poppins", sans-serif;
   margin: 0;
   padding: 0;
   background: #e3f2fd; /* Very light blue background for the whole body */
@@ -31,7 +31,7 @@ header h1 {
   font-size: 2em;
   text-transform: uppercase;
   letter-spacing: 2px;
-  font-weight: 600;
+  font-weight: 700; /* Bold weight for headings */
 }
 
 /* SEARCH BAR */
@@ -156,6 +156,7 @@ main {
   margin-top: 0;
   color: #1e88e5; /* Blue */
   font-size: 1.6em;
+  font-weight: bold; /* Bold for headings within cards */
 }
 
 .app-card p {
