@@ -6,44 +6,38 @@ document.addEventListener('DOMContentLoaded', () => {
   const searchBar = document.getElementById('searchBar');
   const backButtonContainer = document.getElementById('back-button-container');
   const backButton = document.getElementById('back-button');
+
   let allApps = [];
-  let categories = {}; // Store categories data in memory
+  let categories = {};
 
   const apiUrl = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${range}?key=${apiKey}`;
 
-  // Fetch data from Google Sheets
-  fetch(apiUrl)
-    .then(response => {
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      return response.json();
-    })
-    .then(data => {
+  // ✅ Fetch data from Google Sheets
+  async function fetchData() {
+    try {
+      const response = await fetch(apiUrl);
+      if (!response.ok) throw new Error(`Failed to fetch data: ${response.status}`);
+
+      const data = await response.json();
       if (data.values && data.values.length > 1) {
         const headers = data.values[0];
         const appsData = data.values.slice(1);
 
-        appsData.forEach(appRow => {
+        appsData.forEach((appRow) => {
           const app = {};
           headers.forEach((header, index) => {
             app[header] = appRow[index];
           });
 
-          // Parse the categories field to an array if it's a string
+          // ✅ Handle multiple categories properly
           if (typeof app.Category === 'string') {
-            app.Category = app.Category.split(',').map(category => category.trim());
+            app.Category = app.Category.split(',').map((cat) => cat.trim());
           }
+          if (!Array.isArray(app.Category)) app.Category = [app.Category];
 
-          // Ensure categories is an array to handle multiple categories
-          if (!Array.isArray(app.Category)) {
-            app.Category = [app.Category];
-          }
-
-          app.Category.forEach(category => {
-            if (!categories[category]) {
-              categories[category] = [];
-            }
+          // ✅ Store in categories
+          app.Category.forEach((category) => {
+            if (!categories[category]) categories[category] = [];
             categories[category].push(app);
           });
 
@@ -52,89 +46,88 @@ document.addEventListener('DOMContentLoaded', () => {
 
         displayCategories(Object.keys(categories).sort());
       } else {
-        appListContainer.innerHTML = '<p>No applications data found in the sheet.</p>';
+        appListContainer.innerHTML = '<p>No data available.</p>';
       }
-    })
-    .catch(error => {
-      console.error('Error fetching data from Google Sheets:', error);
+    } catch (error) {
+      console.error('Error loading data:', error);
       appListContainer.innerHTML = '<p>Error loading applications.</p>';
-    });
+    }
+  }
 
-  // Display categories
+  // ✅ Display categories
   function displayCategories(categoriesArray) {
     appListContainer.innerHTML = '';
     backButtonContainer.classList.remove('visible'); // Hide back button
-    categoriesArray.forEach(category => {
-      const categoryCard = document.createElement('div');
-      categoryCard.classList.add('app-card', 'category-card');
-      categoryCard.textContent = category;
-      categoryCard.addEventListener('click', () => {
+
+    categoriesArray.forEach((category) => {
+      const card = document.createElement('div');
+      card.classList.add('app-card', 'category-card');
+      card.textContent = category;
+
+      // ✅ Handle category click
+      card.addEventListener('click', () => {
         displayTools(categories[category]);
       });
-      appListContainer.appendChild(categoryCard);
+
+      appListContainer.appendChild(card);
     });
   }
 
-  // Display tools in a category
+  // ✅ Display apps in a category
   function displayTools(tools) {
     appListContainer.innerHTML = '';
     backButtonContainer.classList.add('visible'); // Show back button
-    tools.forEach(tool => {
+
+    tools.forEach((tool) => {
       appListContainer.appendChild(createAppCard(tool));
     });
   }
 
-  // Handle "Back to Categories" button click
-  backButton.addEventListener('click', () => {
-    displayCategories(Object.keys(categories).sort()); // Reuse stored categories data
-  });
-
-  // Create an app card
+  // ✅ Create app card (Fixed Links)
   function createAppCard(app) {
     const card = document.createElement('div');
     card.classList.add('app-card');
 
-    const nameElement = document.createElement('h2');
-    nameElement.textContent = app.Name || 'No Name';
-    nameElement.classList.add('app-name');
+    // ✅ Ensure the link starts with http:// or https://
+    const validLink = app.Link && (app.Link.startsWith('http://') || app.Link.startsWith('https://'))
+      ? app.Link
+      : `https://${app.Link}`;
 
-    const descriptionElement = document.createElement('p');
-    descriptionElement.textContent = app.Description || 'No description provided.';
-    descriptionElement.classList.add('app-description');
-
-    const categoriesElement = document.createElement('p');
-    categoriesElement.classList.add('categories');
-    categoriesElement.textContent = app.Category ? `Categories: ${app.Category.join(', ')}` : 'No categories listed.';
-
-    const priceElement = document.createElement('p');
-    priceElement.classList.add('app-price');
-    priceElement.textContent = `Price: ${app.Pricing || 'N/A'}`; // Display 'N/A' if no price is provided
-
-    const linkElement = document.createElement('a');
-    linkElement.href = app.Link || '#';
-    linkElement.textContent = 'Visit Website';
-    linkElement.classList.add('app-link');
-
-    card.appendChild(nameElement);
-    card.appendChild(descriptionElement);
-    card.appendChild(categoriesElement);
-    card.appendChild(priceElement);
-    card.appendChild(linkElement);
+    card.innerHTML = `
+      <h2 class="app-name">${app.Name || 'No Name'}</h2>
+      <p class="app-description">${app.Description || 'No description available.'}</p>
+      <p class="categories">Categories: ${app.Category.join(', ') || 'None'}</p>
+      <p class="app-price">Price: ${app.Pricing || 'N/A'}</p>
+      <a href="${validLink || '#'}" target="_blank" rel="noopener noreferrer" class="app-link">Visit Website</a>
+    `;
 
     return card;
   }
 
-  // Search functionality
+  // ✅ Back button to go back to categories
+  backButton.addEventListener('click', () => {
+    displayCategories(Object.keys(categories).sort());
+  });
+
+  // ✅ Search functionality
   searchBar.addEventListener('input', (e) => {
     const searchTerm = e.target.value.toLowerCase();
-    const filteredApps = allApps.filter(app => {
-      return (
-        app.Name.toLowerCase().includes(searchTerm) ||
-        app.Category.some(category => category.toLowerCase().includes(searchTerm)) ||
-        (app.Pricing && app.Pricing.toLowerCase().includes(searchTerm)) ||
-        (app.Link && app.Link.toLowerCase().includes(searchTerm))
-      );
-    });
+
+    if (searchTerm === '') {
+      displayCategories(Object.keys(categories).sort());
+      return;
+    }
+
+    const filteredApps = allApps.filter((app) =>
+      app.Name.toLowerCase().includes(searchTerm) ||
+      app.Category.some((category) => category.toLowerCase().includes(searchTerm)) ||
+      (app.Pricing && app.Pricing.toLowerCase().includes(searchTerm)) ||
+      (app.Link && app.Link.toLowerCase().includes(searchTerm))
+    );
+
     displayTools(filteredApps);
   });
+
+  // ✅ Load data on page load
+  fetchData();
 });
