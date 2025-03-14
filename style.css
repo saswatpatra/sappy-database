@@ -1,250 +1,244 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AlternativeTo - Your Version</title>
-  <style>
-    /* GENERAL STYLES */
-    html {
-      scroll-behavior: smooth;
-    }
+/* GENERAL STYLES */
+html {
+  scroll-behavior: smooth;
+}
 
-    body {
-      font-family: "Poppins", sans-serif;
-      margin: 0;
-      padding: 0;
-      background: #E6F7FF; /* Light blue background for main content */
-      color: #333333;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
+body {
+  font-family: "Poppins", sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #e3f2fd; /* Very light blue background for the whole body */
+  color: #333; /* Dark text color */
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
 
-    /* HEADER STYLING */
-    header {
-      background: #FFD95F; /* Solid light yellow */
-      color: #333333;
-      padding: 20px;
-      text-align: center;
-      position: relative;
-      box-shadow: 
-        0 5px 15px rgba(0, 0, 0, 0.1),
-        0 10px 20px rgba(0, 0, 0, 0.05); /* Layered shadow */
-      border-bottom: 4px solid #FFC107; /* Darker yellow border */
-      margin-bottom: 10px;
-      overflow: hidden; /* Ensures the pseudo-element doesn't overflow */
-    }
+/* HEADER STYLING */
+header {
+  background: #fff176; /* Light yellow */
+  color: #333; /* Dark text color */
+  padding: 20px;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1), 0 10px 20px rgba(0, 0, 0, 0.05); /* Layered shadow */
+  border-bottom: 4px solid #fdd835; /* Brighter yellow */
+  margin-bottom: 10px;
+}
 
-    header::after {
-      content: '';
-      position: absolute;
-      bottom: -20px; /* Adjusted for the curve */
-      left: 0;
-      width: 100%;
-      height: 40px; /* Increased to create more curve */
-      background: linear-gradient(to bottom, #FFD95F, transparent);
-      box-shadow: 0 20px 20px rgba(0, 0, 0, 0.1);
-      border-radius: 50%; /* Creates the curved effect */
-      z-index: -1;
-    }
+header h1 {
+  font-size: 2em;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 600;
+}
 
-    header h1 {
-      font-size: 2em;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      font-weight: 600;
-      color: #333333;
-      text-shadow: 
-        0 2px 2px rgba(0, 0, 0, 0.1),
-        0 4px 4px rgba(0, 0, 0, 0.05); /* Text depth */
-    }
-    /* SEARCH BAR */
-    header input[type="text"] {
-      padding: 12px 20px;
-      border: 2px solid #00CED1; /* Teal border */
-      border-radius: 30px;
-      background-color: rgba(255, 255, 255, 0.9);
-      color: #333333;
-      width: 80%;
-      max-width: 600px;
-      transition: all 0.3s ease;
-      box-shadow: 0 0 10px rgba(0, 206, 209, 0.2);
-    }
+/* SEARCH BAR */
+header input[type="text"] {
+  padding: 12px 20px;
+  border: 2px solid #fff59d; /* Very light yellow border */
+  border-radius: 30px;
+  background-color: rgba(255, 255, 255, 0.9);
+  color: #333;
+  width: 80%;
+  max-width: 600px;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 10px rgba(255, 245, 157, 0.2);
+}
 
-    header input[type="text"]:focus {
-      border-color: #FF6F61; /* Coral pink on focus */
-      outline: none;
-      box-shadow: 0 0 15px rgba(255, 111, 97, 0.3);
-    }
+header input[type="text"]:focus {
+  border-color: #fbc02d; /* Darker yellow on focus */
+  outline: none;
+  box-shadow: 0 0 15px rgba(251, 192, 45, 0.3);
+}
 
-    /* MAIN CONTENT */
-    main {
-      padding: 20px;
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 20px;
-      flex-grow: 1;
-      transition: opacity 0.5s ease;
-      margin: 0 auto;
-      max-width: 1200px;
-      box-sizing: border-box;
-      overflow: hidden;
-      background: #E6F7FF; /* Light blue background */
-    }
+/* FOOTER */
+footer {
+  background: #fff176; /* Light yellow */
+  color: #333; /* Dark text color */
+  text-align: center;
+  padding: 15px;
+  font-size: 0.8em;
+  margin-top: auto; /* Pushes the footer to the bottom */
+}
 
-    /* CATEGORY CARD STYLING */
-    .category-card {
-      background: #FFFFFF;
-      border-radius: 12px;
-      padding: 20px;
-      box-shadow: 0 4px 10px rgba(0, 206, 209, 0.2);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      border: 1px solid rgba(0, 206, 209, 0.1);
-      text-align: center;
-      cursor: pointer;
-      box-sizing: border-box;
-    }
+footer p {
+  margin: 0;
+}
 
-    .category-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 25px rgba(0, 206, 209, 0.3);
-      background: #00CED1; /* Teal background on hover */
-      color: #FFFFFF;
-    }
+footer a {
+  color: #333; /* Dark text color */
+  text-decoration: none;
+  font-weight: bold;
+}
 
-    /* APP CARD STYLING */
-    .app-card {
-      background: #FFFFFF;
-      border-radius: 12px;
-      padding: 20px;
-      box-shadow: 0 4px 10px rgba(0, 206, 209, 0.2);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      border: 1px solid rgba(0, 206, 209, 0.1);
-      position: relative;
-      overflow: hidden;
-      box-sizing: border-box;
-    }
+footer a:hover {
+  color: #1565c0; /* Blue */
+  text-decoration: underline;
+}
 
-    .app-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 25px rgba(0, 206, 209, 0.3);
-      background: #FF6F61; /* Coral pink background on hover */
-      color: #FFFFFF;
-    }
+/* 3D CURVED EFFECT */
+.curved {
+  position: relative;
+  overflow: hidden;
+}
 
-    .app-card h2 {
-      margin-top: 0;
-      color: #00CED1; /* Teal for app names */
-      font-size: 1.6em;
-    }
+.curved::before,
+.curved::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 20px;
+  pointer-events: none;
+}
 
-    /* FAVORITE BUTTON */
-    .favorite-btn {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      font-size: 1.5em;
-      color: #FF6F61; /* Coral pink */
-      cursor: pointer;
-      transition: color 0.3s ease, transform 0.3s ease;
-    }
+.curved::before {
+  bottom: 100%;
+  background: linear-gradient(to bottom, #fff176, transparent);
+}
 
-    .favorite-btn:hover {
-      animation: bounce 0.5s ease;
-    }
+.curved::after {
+  top: 100%;
+  background: linear-gradient(to top, #fff176, transparent);
+}
 
-    .favorite-btn.active {
-      color: #00CED1; /* Teal */
-      transform: scale(1.2);
-    }
+/* MAIN CONTENT */
+main {
+  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+  flex-grow: 1;
+  transition: opacity 0.5s ease;
+  margin: 0 auto;
+  max-width: 1200px;
+  box-sizing: border-box;
+  overflow: hidden;
+  background: #e3f2fd; /* Very light blue background for main content */
+}
 
-    @keyframes bounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
-    }
+/* CATEGORY CARD STYLING */
+.category-card {
+  background: #ffffff; /* White */
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: center;
+  cursor: pointer;
+  box-sizing: border-box;
+}
 
-    /* BACK TO CATEGORIES BUTTON */
-    #back-button-container {
-      text-align: center;
-      margin: 20px auto;
-      padding: 10px;
-      transition: opacity 0.3s ease, transform 0.3s ease;
-      display: none; /* Hide by default */
-    }
+.category-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(255, 255, 255, 0.3);
+  background: #b2ebf2; /* Light cyan */
+  color: #333;
+}
 
-    #back-button-container.visible {
-      display: block; /* Show only when needed */
-    }
+/* APP CARD STYLING */
+.app-card {
+  background: #ffffff; /* White */
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+}
 
-    #back-button {
-      background: #FF6F61; /* Coral pink */
-      border: none;
-      border-radius: 30px;
-      padding: 10px 20px;
-      color: #FFFFFF;
-      font-weight: 600;
-      cursor: pointer;
-      box-shadow: 0 4px 10px rgba(255, 111, 97, 0.3);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
+.app-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(255, 255, 255, 0.3);
+  background: #b2ebf2; /* Light cyan */
+  color: #333;
+}
 
-    #back-button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 15px rgba(255, 111, 97, 0.4);
-    }
+.app-card h2 {
+  margin-top: 0;
+  color: #1e88e5; /* Blue */
+  font-size: 1.6em;
+}
 
-    /* FOOTER */
-    footer {
-      background: #FFD95F; /* Solid light yellow */
-      color: #333333;
-      text-align: center;
-      padding: 15px;
-      font-size: 0.8em;
-    }
+/* BACK TO CATEGORIES BUTTON */
+#back-button-container {
+  text-align: center;
+  margin: 20px auto;
+  padding: 10px;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  display: none; /* Hide by default */
+}
 
-    footer a {
-      color: #00CED1; /* Teal */
-      text-decoration: none;
-      font-weight: bold;
-    }
+#back-button-container.visible {
+  display: block; /* Show only when needed */
+}
 
-    footer a:hover {
-      color: #FF6F61; /* Coral pink */
-      text-decoration: underline;
-    }
+#back-button {
+  background: #ffeb3b; /* Yellow */
+  border: none;
+  border-radius: 30px;
+  padding: 10px 20px;
+  color: #333;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(255, 235, 59, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
 
-    /* RESPONSIVE DESIGN */
-    @media (max-width: 768px) {
-      header h1 {
-        font-size: 1.5em;
-      }
+#back-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(255, 235, 59, 0.4);
+}
 
-      header input[type="text"] {
-        width: 90%;
-        padding: 10px 15px;
-      }
+/* RESPONSIVE DESIGN */
+@media (max-width: 768px) {
+  header h1 {
+    font-size: 1.5em;
+  }
 
-      main {
-        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-        padding: 10px;
-      }
+  header input[type="text"] {
+    width: 90%;
+    padding: 10px 15px;
+  }
 
-      .category-card, .app-card {
-        padding: 15px;
-      }
+  main {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    padding: 10px;
+  }
 
-      .app-card h2 {
-        font-size: 1.4em;
-      }
+  .category-card, .app-card {
+    padding: 15px;
+  }
 
-      #back-button {
-        padding: 8px 16px;
-        font-size: 0.9em;
-      }
-    }
+  .app-card h2 {
+    font-size: 1.4em;
+  }
+}
 
-    @media (max-width: 480px) {
-      header h1 {
-        font-size: 1
+@media (max-width: 480px) {
+  header h1 {
+    font-size: 1.2em;
+  }
+
+  header input[type="text"] {
+    width: 95%;
+    padding: 8px 12px;
+  }
+
+  main {
+    grid-template-columns: 1fr;
+    padding: 5px;
+  }
+
+  .category-card, .app-card {
+    padding: 10px;
+  }
+
+  .app-card h2 {
+    font-size: 1.2em;
+  }
+}
