@@ -83,22 +83,29 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // ✅ Create app card (Fixed Links)
+  // ✅ Create app card (UPDATED)
   function createAppCard(app) {
     const card = document.createElement('div');
     card.classList.add('app-card');
 
     // ✅ Ensure the link starts with http:// or https://
-    const validLink = app.Link && (app.Link.startsWith('http://') || app.Link.startsWith('https://'))
-      ? app.Link
-      : `https://${app.Link}`;
+    let validLink = app.Link;
+    if (validLink) {
+      if (!validLink.startsWith('http://') && !validLink.startsWith('https://')) {
+        if (validLink.startsWith('www.')) {
+          validLink = `https://${validLink}`;
+        } else {
+          validLink = `https://${validLink}`;
+        }
+      }
+    }
 
     card.innerHTML = `
       <h2 class="app-name">${app.Name || 'No Name'}</h2>
       <p class="app-description">${app.Description || 'No description available.'}</p>
       <p class="categories">Categories: ${app.Category.join(', ') || 'None'}</p>
       <p class="app-price">Price: ${app.Pricing || 'N/A'}</p>
-      <a href="${validLink || '#'}" target="_blank" rel="noopener noreferrer" class="app-link">Visit Website</a>
+      ${validLink ? `<a href="${validLink}" target="_blank" rel="noopener noreferrer" class="app-link">Visit Website</a>` : ''}
     `;
 
     return card;
