@@ -9,7 +9,6 @@ document.addEventListener('DOMContentLoaded', () => {
   let allApps = [];
   let categories = {}; // Store categories data in memory
 
-  // Corrected API URL
   const apiUrl = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${range}?key=${apiKey}`;
 
   // Fetch data from Google Sheets
@@ -30,15 +29,28 @@ document.addEventListener('DOMContentLoaded', () => {
           headers.forEach((header, index) => {
             app[header] = appRow[index];
           });
-          const category = app.Category || 'Uncategorized';
-          if (!categories[category]) {
-            categories[category] = [];
+
+          // Parse the categories field to an array if it's a string
+          if (typeof app.Category === 'string') {
+            app.Category = app.Category.split(',').map(category => category.trim());
           }
-          categories[category].push(app);
+
+          // Ensure categories is an array to handle multiple categories
+          if (!Array.isArray(app.Category)) {
+            app.Category = [app.Category];
+          }
+
+          app.Category.forEach(category => {
+            if (!categories[category]) {
+              categories[category] = [];
+            }
+            categories[category].push(app);
+          });
+
           allApps.push(app);
         });
 
-        displayCategories(categories);
+        displayCategories(Object.keys(categories).sort());
       } else {
         appListContainer.innerHTML = '<p>No applications data found in the sheet.</p>';
       }
@@ -49,10 +61,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
   // Display categories
-  function displayCategories(categories) {
+  function displayCategories(categoriesArray) {
     appListContainer.innerHTML = '';
     backButtonContainer.classList.remove('visible'); // Hide back button
-    Object.keys(categories).forEach(category => {
+    categoriesArray.forEach(category => {
       const categoryCard = document.createElement('div');
       categoryCard.classList.add('app-card', 'category-card');
       categoryCard.textContent = category;
@@ -74,7 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Handle "Back to Categories" button click
   backButton.addEventListener('click', () => {
-    displayCategories(categories); // Reuse stored categories data
+    displayCategories(Object.keys(categories).sort()); // Reuse stored categories data
   });
 
   // Create an app card
@@ -84,17 +96,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const nameElement = document.createElement('h2');
     nameElement.textContent = app.Name || 'No Name';
+    nameElement.classList.add('app-name');
 
     const descriptionElement = document.createElement('p');
     descriptionElement.textContent = app.Description || 'No description provided.';
+    descriptionElement.classList.add('app-description');
 
     const categoriesElement = document.createElement('p');
     categoriesElement.classList.add('categories');
-    categoriesElement.textContent = app.Category ? `Categories: ${app.Category}` : 'No categories listed.';
+    categoriesElement.textContent = app.Category ? `Categories: ${app.Category.join(', ')}` : 'No categories listed.';
+
+    const priceElement = document.createElement('p');
+    priceElement.classList.add('app-price');
+    priceElement.textContent = `Price: ${app.Pricing || 'N/A'}`; // Display 'N/A' if no price is provided
+
+    const linkElement = document.createElement('a');
+    linkElement.href = app.Link || '#';
+    linkElement.textContent = 'Visit Website';
+    linkElement.classList.add('app-link');
 
     card.appendChild(nameElement);
     card.appendChild(descriptionElement);
     card.appendChild(categoriesElement);
+    card.appendChild(priceElement);
+    card.appendChild(linkElement);
 
     return card;
   }
@@ -105,7 +130,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const filteredApps = allApps.filter(app => {
       return (
         app.Name.toLowerCase().includes(searchTerm) ||
-        app.Category.toLowerCase().includes(searchTerm)
+        app.Category.some(category => category.toLowerCase().includes(searchTerm)) ||
+        (app.Pricing && app.Pricing.toLowerCase().includes(searchTerm)) ||
+        (app.Link && app.Link.toLowerCase().includes(searchTerm))
       );
     });
     displayTools(filteredApps);
