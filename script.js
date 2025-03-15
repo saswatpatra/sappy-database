@@ -12,9 +12,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const apiUrl = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/${range}?key=${apiKey}`;
 
-  // ✅ Fetch data from Google Sheets
+  // Fetch data from Google Sheets
   async function fetchData() {
     try {
+      // Show loading spinner
+      appListContainer.innerHTML = '<div class="loading-spinner"></div>';
+
       const response = await fetch(apiUrl);
       if (!response.ok) throw new Error(`Failed to fetch data: ${response.status}`);
 
@@ -29,13 +32,10 @@ document.addEventListener('DOMContentLoaded', () => {
             app[header] = appRow[index];
           });
 
-          // ✅ Handle multiple categories properly
-          if (typeof app.Category === 'string') {
-            app.Category = app.Category.split(',').map((cat) => cat.trim());
-          }
-          if (!Array.isArray(app.Category)) app.Category = [app.Category];
+          // Handle multiple categories
+          app.Category = app.Category ? app.Category.split(',').map((cat) => cat.trim()) : ['None'];
 
-          // ✅ Store in categories
+          // Store in categories
           app.Category.forEach((category) => {
             if (!categories[category]) categories[category] = [];
             categories[category].push(app);
@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // ✅ Display categories
+  // Display categories
   function displayCategories(categoriesArray) {
     appListContainer.innerHTML = '';
     backButtonContainer.classList.remove('visible'); // Hide back button
@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
       card.classList.add('app-card', 'category-card');
       card.textContent = category;
 
-      // ✅ Handle category click
+      // Handle category click
       card.addEventListener('click', () => {
         displayTools(categories[category]);
       });
@@ -73,7 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // ✅ Display apps in a category
+  // Display apps in a category
   function displayTools(tools) {
     appListContainer.innerHTML = '';
     backButtonContainer.classList.add('visible'); // Show back button
@@ -83,20 +83,19 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // ✅ Create app card (UPDATED)
+  // Create app card
   function createAppCard(app) {
     const card = document.createElement('div');
     card.classList.add('app-card');
 
-    // ✅ Ensure the link starts with http:// or https://
+    // Validate and format the link
     let validLink = app.Link;
     if (validLink) {
-      if (!validLink.startsWith('http://') && !validLink.startsWith('https://')) {
-        if (validLink.startsWith('www.')) {
-          validLink = `https://${validLink}`;
-        } else {
-          validLink = `https://${validLink}`;
-        }
+      try {
+        new URL(validLink); // Validate the URL
+      } catch (error) {
+        console.error('Invalid URL:', validLink);
+        validLink = null; // Set to null if the URL is invalid
       }
     }
 
@@ -105,36 +104,40 @@ document.addEventListener('DOMContentLoaded', () => {
       <p class="app-description">${app.Description || 'No description available.'}</p>
       <p class="categories">Categories: ${app.Category.join(', ') || 'None'}</p>
       <p class="app-price">Price: ${app.Pricing || 'N/A'}</p>
-      ${validLink ? `<a href="${validLink}" target="_blank" rel="noopener noreferrer" class="app-link">Visit Website</a>` : ''}
+      ${validLink ? `<a href="${validLink}" target="_blank" rel="noopener noreferrer" class="app-link">Visit Website</a>` : '<p class="no-link">Link not available</p>'}
     `;
 
     return card;
   }
 
-  // ✅ Back button to go back to categories
+  // Back button to go back to categories
   backButton.addEventListener('click', () => {
     displayCategories(Object.keys(categories).sort());
   });
 
-  // ✅ Search functionality
+  // Search functionality with debounce
+  let debounceTimeout;
   searchBar.addEventListener('input', (e) => {
-    const searchTerm = e.target.value.toLowerCase();
+    clearTimeout(debounceTimeout);
+    debounceTimeout = setTimeout(() => {
+      const searchTerm = e.target.value.toLowerCase().trim();
 
-    if (searchTerm === '') {
-      displayCategories(Object.keys(categories).sort());
-      return;
-    }
+      if (searchTerm === '') {
+        displayCategories(Object.keys(categories).sort());
+        return;
+      }
 
-    const filteredApps = allApps.filter((app) =>
-      app.Name.toLowerCase().includes(searchTerm) ||
-      app.Category.some((category) => category.toLowerCase().includes(searchTerm)) ||
-      (app.Pricing && app.Pricing.toLowerCase().includes(searchTerm)) ||
-      (app.Link && app.Link.toLowerCase().includes(searchTerm))
-    );
+      const filteredApps = allApps.filter((app) =>
+        app.Name.toLowerCase().includes(searchTerm) ||
+        app.Category.some((category) => category.toLowerCase().includes(searchTerm)) ||
+        (app.Pricing && app.Pricing.toLowerCase().includes(searchTerm)) ||
+        (app.Link && app.Link.toLowerCase().includes(searchTerm))
+      );
 
-    displayTools(filteredApps);
+      displayTools(filteredApps);
+    }, 300); // Adjust debounce delay as needed
   });
 
-  // ✅ Load data on page load
+  // Load data on page load
   fetchData();
 });
